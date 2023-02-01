@@ -13,11 +13,52 @@
     - Kisi örneklerine `.toString()` metodu ekleyin:
         + Bu `isim` ve `yas` i içeren bir string döndürmelidir Örnek: "Mary, 50"
 */
-
-function Kisi(/* kodlar buraya */) {
-  /* kodlar buraya */
+function Kullanici(isim){
+  this.isim = isim;
+  this.yoneticiMi = false;
+  this.yazdir = function(){
+    return "İsmim : " + this.isim;
+  }
 }
 
+let adam = new Kullanici("İhsan");
+let adam3 = new Kullanici("Ebru");
+console.log(adam3.yazdir());
+
+  let adam2 = {
+    isim : "Emre",
+    yoneticiMi : true,
+    yazdir : function(){
+      return "İsmim : " + this.isim;
+    }
+  }
+  adam2.isim = "Ahmet";
+console.log(adam2.yazdir());
+
+function Kisi(isim, yas) {
+  this.isim = isim;
+  this.yas = yas;
+  this.mide = [];
+  this.ye = function(yemek){
+    
+    if (this.mide.length < 11){
+      this.mide.push(yemek)
+    }
+  }
+  this.bosalt = function(){
+    this.mide = [];
+  }
+this.toString = function(){
+  return `${this.isim}, ${this.yas} `
+}
+  /* kodlar buraya */
+}
+let name = new Kisi("İhsan", 40);
+name.ye("patates");
+name.ye("hamburger");
+name.toString();
+
+console.log(name.toString());
 
 /*
   GÖREV 2
@@ -35,10 +76,32 @@ function Kisi(/* kodlar buraya */) {
         +  "x milde benzinim bitti!" x değişkeni `odometer` daki sayı olmalıdır.
 */
 
-function Araba(/* kodlar buraya */) {
+function Araba(model, tuketim) {
+  this.model = model;
+  this.milesPerGallon = tuketim;
+  this.tank = 0;
+  this.odometer = 0;
+  this.fill = function(galon) {
+    this.tank = this.tank + galon; // this.tank += galon
+  }
+  this.drive = function(distance){
+    this.odometer += distance;
+    this.tank -= Math.round(distance / this.milesPerGalon);
+    if (this.tank <= 0){
+      const extraMile = this.tank * this.milesPerGallon;
+      this.odometer += Math.round(extraMile);
+      this.tank = 0;
+      console.log(`${this.odometer} milde benzinim bitti!`)
+    }
+  }
   /* kodlar buraya */
 }
-
+let vw = new Araba("Passat", 15);
+vw.fill(65);
+vw.drive(125);
+vw.drive(950);
+console.log(vw.tank);
+console.log(vw.odometer);
 
 /* 
   GÖREV 3
